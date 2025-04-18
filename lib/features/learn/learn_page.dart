@@ -21,7 +21,7 @@ class LearnPage extends ConsumerStatefulWidget {
 class _LearnPageState extends ConsumerState<LearnPage> {
   int index = 0;
   bool isFinished = false;
-  late final List<Flashcard> flashcards;
+  late List<Flashcard> flashcards;
 
   @override
   void didChangeDependencies() {
@@ -31,9 +31,10 @@ class _LearnPageState extends ConsumerState<LearnPage> {
         allCards
             .where((card) => card.deckId.toString() == widget.deckId)
             .toList();
-    flashcards = getDueFlashcards(filteredCards);
 
-    final dueCount = getDueFlashcards(flashcards).length;
+    flashcards = getCardsForSession(filteredCards);
+
+    final dueCount = flashcards.length;
     log("Нужно повторить $dueCount карточек");
   }
 

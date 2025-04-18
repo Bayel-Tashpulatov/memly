@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-
 part 'flashcard.g.dart';
 
 @HiveType(typeId: 32)
@@ -35,8 +35,12 @@ class Flashcard extends HiveObject {
   DateTime nextReview;
 
   @HiveField(10)
-  String? lastDifficulty; // <- добавлено
+  String? lastDifficulty;
 
+  @HiveField(11)
+  late final String id;
+
+  // Constructor with default value for lastDifficulty
   Flashcard({
     required this.front,
     required this.back,
@@ -47,7 +51,8 @@ class Flashcard extends HiveObject {
     this.interval = 1,
     this.easeFactor = 2,
     this.lastReviewed,
-    this.lastDifficulty, // <- добавлено
-    DateTime? nextReview, // <- параметр конструктора
-  }) : nextReview = nextReview ?? DateTime.now();
+    this.lastDifficulty,
+    DateTime? nextReview,
+  }) : nextReview = nextReview ?? DateTime.now(),
+       id = UniqueKey().toString();
 }
